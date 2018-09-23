@@ -414,7 +414,8 @@ bigint** Client::gen_map (int size, bigint seed1, bigint seed2){
 //**********************************************************************
 // - Function description: given two arrays permuted (under two different keys), it finds their matching indices.
 // It is called by find_matched_bins().
- int* Client::find_matches(int* a, int* b, int size){
+ 
+int* Client::find_matches(int* a, int* b, int size){
 	 int* res;
 	 res=new int[size];
 	 for(int i = 0; i < size; i++){
