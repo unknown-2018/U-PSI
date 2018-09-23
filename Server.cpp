@@ -165,51 +165,51 @@ void Server::regen_PRpolys(bigint key_, bigint **&w_A_, bigint **& w_B_, bigint 
 
 	 bigint** a, **w_A, **w_B, **tmp_bl;
 	 regen_PRpolys(grantComp_info->seed, w_A,w_B, a, tmp_bl, tmp_key_);
-		int indx_A,indx_B;
-		bigint *o_A, *o_B,* *res, buf_1, buf_2, *temp_BFs, tmp_bf_A, tmp_bf_B;
-		mpz_init(buf_1);
-		mpz_init(buf_2);
-		res = (mpz_t**)malloc(table_size * sizeof(mpz_t));
-		o_A = (mpz_t*)malloc(xpoint_size * sizeof(mpz_t));
-		o_B = (mpz_t*)malloc(xpoint_size * sizeof(mpz_t));
-		temp_BFs = (mpz_t*)malloc(table_size * sizeof(mpz_t));
-		for(int i = 0; i < table_size; i++){
-			o_A = get_client_bin(grantComp_info->pm[i][0], grantComp_info->id[1], tmp_bf_A, indx_A);
-			o_B = get_client_bin(grantComp_info->pm[i][1], grantComp_info->id[0], tmp_bf_B, indx_B);
-			mpz_init_set(temp_BFs[indx_B], tmp_bf_B);
-			mpz_clear(tmp_bf_B);
-			mpz_clear(tmp_bf_A);
-			res[indx_B] = (mpz_t*)malloc(xpoint_size * sizeof(mpz_t));
-			// given the map,  pseudorandom values, and clients' datasets, it computes the final result.
-			for(int j = 0; j < xpoint_size; j++){
-				mpz_init(res[indx_B][j]);
-				mpz_mul(buf_1, w_A[indx_A][j], o_A[j]); // multiplies client A's dataset by the pseudorandom polynomial: w_A.
-				mpz_add(buf_2, o_B[j], tmp_bl[indx_B][j]); // adds client B's dataset by the blinding factor it sent to the server.
-				mpz_mul(buf_2, w_B[indx_B][j], buf_2);  // multiplies the value in generated one line above by the pseudorandom polynomial: w_B.
-				mpz_add(buf_2, buf_2,buf_1);
-				mpz_add(buf_2, buf_2, a[indx_A][j]); // adds all the product computed above together and with the blinding facotr a[indx_A][j].
-				mpz_mod(res[indx_B][j], buf_2, pu_moduli[0]);
-				mpz_clear(o_A[j]);
-				mpz_clear(o_B[j]);
-				mpz_clear(a[indx_A][j]);
-				mpz_clear(w_B[indx_B][j]);
-				mpz_clear(w_A[indx_A][j]);
-			}
-	}
-	Server_Result* ptr;
-	ptr = new Server_Result;
-	ptr->BF = temp_BFs;
-	ptr->result = res;
-	free(tmp_bl);
-	free(w_A);
-	free(w_B);
-	free(a);
-	free(o_A);
-	free(o_B);
-	mpz_clear(buf_1);
-	mpz_clear(buf_2);
-	return ptr;
-}
+	 int indx_A,indx_B;
+	 bigint *o_A, *o_B,* *res, buf_1, buf_2, *temp_BFs, tmp_bf_A, tmp_bf_B;
+	 mpz_init(buf_1);
+	 mpz_init(buf_2);
+	 res = (mpz_t**)malloc(table_size * sizeof(mpz_t));
+	 o_A = (mpz_t*)malloc(xpoint_size * sizeof(mpz_t));
+	 o_B = (mpz_t*)malloc(xpoint_size * sizeof(mpz_t));
+	 temp_BFs = (mpz_t*)malloc(table_size * sizeof(mpz_t));
+	 for(int i = 0; i < table_size; i++){
+		 o_A = get_client_bin(grantComp_info->pm[i][0], grantComp_info->id[1], tmp_bf_A, indx_A);
+		 o_B = get_client_bin(grantComp_info->pm[i][1], grantComp_info->id[0], tmp_bf_B, indx_B);
+		 mpz_init_set(temp_BFs[indx_B], tmp_bf_B);
+		 mpz_clear(tmp_bf_B);
+		 mpz_clear(tmp_bf_A);
+		 res[indx_B] = (mpz_t*)malloc(xpoint_size * sizeof(mpz_t));
+		 // given the map,  pseudorandom values, and clients' datasets, it computes the final result.
+		 for(int j = 0; j < xpoint_size; j++){
+			 mpz_init(res[indx_B][j]);
+			 mpz_mul(buf_1, w_A[indx_A][j], o_A[j]); // multiplies client A's dataset by the pseudorandom polynomial: w_A.
+			 mpz_add(buf_2, o_B[j], tmp_bl[indx_B][j]); // adds client B's dataset by the blinding factor it sent to the server.
+			 mpz_mul(buf_2, w_B[indx_B][j], buf_2);  // multiplies the value in generated one line above by the pseudorandom polynomial: w_B.
+			 mpz_add(buf_2, buf_2,buf_1);
+			 mpz_add(buf_2, buf_2, a[indx_A][j]); // adds all the product computed above together and with the blinding facotr a[indx_A][j].
+			 mpz_mod(res[indx_B][j], buf_2, pu_moduli[0]);
+			 mpz_clear(o_A[j]);
+			 mpz_clear(o_B[j]);
+			 mpz_clear(a[indx_A][j]);
+			 mpz_clear(w_B[indx_B][j]);
+			 mpz_clear(w_A[indx_A][j]);
+		 }
+	 }
+	 Server_Result* ptr;
+	 ptr = new Server_Result;
+	 ptr->BF = temp_BFs;
+	 ptr->result = res;
+	 free(tmp_bl);
+	 free(w_A);
+	 free(w_B);
+	 free(a);
+	 free(o_A);
+	 free(o_B);
+	 mpz_clear(buf_1);
+	 mpz_clear(buf_2);
+	 return ptr;
+ }
 //**********************************************************************
 // - Function description: given client's ID, it finds the client's dataset index at the server-side.
 
