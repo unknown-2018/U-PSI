@@ -418,7 +418,7 @@ bigint** Client::gen_map (int size, bigint seed1, bigint seed2){
  
 int* Client::find_matches(int* a, int* b, int size){
 	 
-	int* res;
+	 int* res;
 	 res=new int[size];
 	 for(int i = 0; i < size; i++){
 		 for(int j = 0; j < size; j++){
