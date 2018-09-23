@@ -99,8 +99,8 @@ int main(){
 	cout<<"\n------------------------"<<endl;
 	cout<<"\n Client B's Update Status:"<<d<<endl;
 	cout<<"\n------------------------"<<endl;
-
-//-----------Set intersection------------
+		
+	//-----------Set intersection------------
 	bigint B_tk, **q;
 	int* sz;
 	cout<<"\n---- Gennerate the Computation Request"<<endl;
@@ -144,13 +144,8 @@ int main(){
 	float inter_time = inter / (double) CLOCKS_PER_SEC;
 	cout<<"\n\n Find intersection-- time:"<<inter_time<<endl;
 	cout<<"\n\n\t=================="<<endl;
-//-----------End of Set intersection------------
+	//-----------End of Set intersection------------
+	}
+	return 0;
 }
-
-
-return 0;
-
-}
-//g++ -g -O2   Rand.o Hashtable.o Polynomial.o Server.o Client.o OPSImain.cpp - -c Client.cpp  -I/afs/inf.ed.ac.uk/user/a/akheirba/bloom_filter/bloom_filter.hpp  -lntl -lgmpxx -lgmp -lcryptopp  -std=gnu++11
-//g++ -g -O0 -I$home/aydinabadi/include Rand.o  Hashtable.o HTtoBF.cpp  -o l -I/aydinabadi/bloom_filter/bloom_filter.hpp  -lntl -lgmpxx -lgmp -lcryptopp
-//$ g++ -I$home/win7/include  polynomial.o server.o client.o OPSImain.cpp -lgomp  -L/cygdrive/c/cygwin/home/Win7/libpaillier -l:libpaillier.a  -L$home/win7/lib -lntl -lgmpxx -lgmp -lm
+//**********************************************************************
