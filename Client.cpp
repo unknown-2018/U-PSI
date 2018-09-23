@@ -358,6 +358,7 @@ string Client::update(bigint elem, string updt, bigint & label, string id){
 // - Function description: generates a set of distinct pseudorandom labels.
 
 bigint* Client::gen_labels (int size, bigint seed){
+	
 	double start_1 = clock();
 	double end_1;
 	mpz_t *labels;
@@ -416,7 +417,8 @@ bigint** Client::gen_map (int size, bigint seed1, bigint seed2){
 // It is called by find_matched_bins().
  
 int* Client::find_matches(int* a, int* b, int size){
-	 int* res;
+	 
+	int* res;
 	 res=new int[size];
 	 for(int i = 0; i < size; i++){
 		 for(int j = 0; j < size; j++){
