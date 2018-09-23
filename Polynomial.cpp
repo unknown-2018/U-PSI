@@ -182,3 +182,4 @@ bigint* Polynomial::interpolate(int size, bigint* a, bigint* b, bigint N){
 	 mpz_clear(t2);
 	 return res;
 }
+//**********************************************************************
