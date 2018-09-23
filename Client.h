@@ -75,7 +75,7 @@ private:
 	void get_xpoints(int& size);
 	void get_tablesize();
 	void get_NoElem_in_bucket();
-	//Variables
+	// Variables
 	bigint seed, counter_key, label_key, shuffle_key, BF_key, pr_moduli, BF_counter_key, *elem, pubmoduli, * xpoints;
 	int elem_size, xpoint_size, *counter, table_size, pub_moduli_bitsize, labels_bit_size, pr_moduli_bitsize, NoElem_in_bucket;
 	string outpoly_ID;
