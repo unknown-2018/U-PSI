@@ -459,6 +459,7 @@ int* Client::find_matched_bins(bigint k_1, bigint k_2, int size){
 // - Function description: pseudorandomly permutes an array of integers, using Fisher-Yates shuffle algorithm.
 
 int* Client::PR_shuffle(int* elem, int size, bigint seed){
+	
 	int *result;
 	result = new int [size];
 	int buffer;
@@ -674,6 +675,7 @@ bigint** Client::combine_permuted_bins(bigint**& v_a, bigint**& v_b, bigint**& a
 // - Function description: converts a bloom filter to a biginteger value.
 
 bigint* Client::convert_BF_to_bigint(bloom_filter filter){
+	
 	int size = filter.bit_table_.size();
 	bigint* res;
 	res = (mpz_t*)malloc(1 * sizeof(mpz_t));
@@ -729,8 +731,9 @@ bigint* Client::convert_BF_to_bigint(bloom_filter filter){
 // - Function description: given an element, it determines its bin's index in the hash table.
 
 int Client::gen_binIndx(bigint elem, int table_size){
-  bigint b, zz;
-  mpz_init(zz);
+  
+	bigint b, zz;
+	mpz_init(zz);
 	mpz_set_ui(zz, table_size);
 	string s_val;
 	CryptoPP::SHA512 hash2;
@@ -739,16 +742,17 @@ int Client::gen_binIndx(bigint elem, int table_size){
 	byte digest[CryptoPP::SHA512::DIGESTSIZE];
 	hash2.CalculateDigest(digest, (byte*)s_val.c_str(), nDataLen); // hashes the element.
 	s_val.clear();
-  mpz_init(b);
+	mpz_init(b);
 	mpz_import(b, sizeof(digest), 1, sizeof(digest[0]), 0, 0, digest);
 	mpz_mod(b, b, zz);
 	int j = mpz_get_ui(b); // converts the hash value to an integer.
-  return j;
+	return j;
 }
 //**********************************************************************
 // - Function description: given a hashtable containing set elements, it assigns a bloom filter to each bin of the table.
 
 bigint* Client::assing_BFs2HT(Hashtable HT, int NoElem_in_bucket, int table_size, bloom_parameters parameters){
+	
 	bloom_filter filter(bf_parameters);
 	bigint minus_one;
 	mpz_init_set_str(minus_one, "-1", 10);
@@ -771,7 +775,7 @@ bigint* Client::assing_BFs2HT(Hashtable HT, int NoElem_in_bucket, int table_size
 		mpz_init_set(bigint_BF[i], temp_bigint[0]); // stores the biginteger in an array.
 		filter.clear();
 	}
- return bigint_BF;
+	return bigint_BF;
 }
 //**********************************************************************
 // - Function description: given an array of values and a biginteger representing a Bloom filter, it returns those
@@ -808,12 +812,14 @@ bigint* Client::check_vals_in_BF(bigint* vals, int val_size, bigint bf, bloom_pa
 // - Function description: fetches bin's capacity: d, as apart of the hashtable parameter, from the server.
 
 void Client::get_NoElem_in_bucket(){
+	
 	NoElem_in_bucket = serv->get_NoElem_in_bucket();
 }
 //**********************************************************************
 // - Function description: fetches an array of x-coordinates from the server.
 
 void Client::get_xpoints(int& size){
+	
 	xpoints = serv->get_xpoints(size);
 	xpoint_size = size;
 }
@@ -821,12 +827,14 @@ void Client::get_xpoints(int& size){
 // - Function description: retrives the public moduli bit-size from the server.
 
 void Client::get_pubModuli_bitsize(){
+	
 	pub_moduli_bitsize = serv->get_pubModuli_bitsize();
 }
 //**********************************************************************
 // - Function description: fetches the public moduli from the server.
 
 void Client::get_pubModuli(){
+	
 	bigint *ptr = (mpz_t*)malloc(1 * sizeof(mpz_t));
 	ptr = serv->get_pubModuli();
 	mpz_init_set(pubmoduli, ptr[0]);
@@ -835,12 +843,14 @@ void Client::get_pubModuli(){
 // - Function description: fetches the hashtable length: h, as apart of the hashtable parameter, from the server.
 
 void Client::get_tablesize(){
+	
 	table_size = serv->get_table_size();
 }
 //**********************************************************************
 // - Function description: prepare the set elements and sends a blinded dataset to the server.
 
 void Client::outsource_db(string& poly_ID){
+	
 	Client_Dataset db;
 	bigint minus_one, *blinded_BF, *permuted_BBF, *bigint_BF, tmp_key, key, ck, bliding_key, tmp2;
 	mpz_init_set_str(minus_one, "-1", 10);
