@@ -1,4 +1,4 @@
-# U-PSI: An Efficient Updatable Delegated Private Set intersection
+# U-PSI: An Efficient Updatable Delegated Private Set Intersection
 
 
 * An efficient protocol that allows clients independently prepare and outosurce their private data
