@@ -15,6 +15,8 @@ to a cloud server. Then, they can efficiently update or run private set intersec
 
     ```
     cd U-PSI
+    g++  -c  Rand.cpp -c Hashtable.cpp -c Polynomial.cpp -c Server.cpp -c Client.cpp
+    
+    
     ```
     
-* run: g++  -c  Rand.cpp -c Hashtable.cpp -c Polynomial.cpp -c Server.cpp -c Client.cpp
