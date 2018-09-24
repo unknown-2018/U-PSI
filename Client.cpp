@@ -357,7 +357,7 @@ string Client::update(bigint elem, string updt, bigint & label, string id){
 //**********************************************************************
 // - Function description: generates a set of distinct pseudorandom labels.
 
-bigint* Client::gen_labels (int size, bigint seed){
+bigint* Client::gen_labels(int size, bigint seed){
 	
 	double start_1 = clock();
 	double end_1;
@@ -390,7 +390,7 @@ bigint* Client::gen_labels (int size, bigint seed){
 // - Function description: generates a permutation map that includes a set of pairs (l_i,l_j)
 // where each pair includes pseudorandom labels each blong to a different client.
 
-bigint** Client::gen_map (int size, bigint seed1, bigint seed2){
+bigint** Client::gen_map(int size, bigint seed1, bigint seed2){
 
 	bigint **labels, **labels2;
 	labels= (mpz_t**)malloc(size * sizeof(mpz_t));
