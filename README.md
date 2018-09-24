@@ -14,7 +14,7 @@ to a cloud server. Then, they can efficiently update or run private set intersec
 * First, clone the above libraries, and the U-PSI file. Then, install the libraries and unzip the U-PSI file. Next:
 
     ```
-    cd U-PSI
+    cd U-PSI-master
     g++  -c  Rand.cpp -c Hashtable.cpp -c Polynomial.cpp -c Server.cpp -c Client.cpp
     g++  -I$home/homeDirectory/include -I/homeDirectory/bloom_filter/bloom_filter.hpp Rand.o Hashtable.o Polynomial.o Server.o Client.o test.cpp  -o test  -lntl -lgmpxx -lgmp -lcryptopp
     ./test
