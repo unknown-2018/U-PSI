@@ -13,6 +13,6 @@ to a cloud server. Then, they can efficiently update or run private set intersec
 # Runnig a Test
 * First, clone the above libraries, and the U-PSI file. Then, install the libraries and unzip the U-PSI file. Next:
 
-    <cd U-PSI>
+    <>cd U-PSI
     
 * run: g++  -c  Rand.cpp -c Hashtable.cpp -c Polynomial.cpp -c Server.cpp -c Client.cpp
