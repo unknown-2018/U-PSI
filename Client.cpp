@@ -476,7 +476,7 @@ int* Client::PR_shuffle(int* elem, int size, bigint seed){
 	gmp_randseed(rand,seed);
 	for (int  j = size - 1; j > 0; j--){
 		mpz_urandomb(r, rand, pub_moduli_bitsize);// Here, pub_moduli_bitsize is an arbitrary choice. It would fine as long as it's greater than the ceiling.
-    // gen random value in in range [0,j]
+    		// gen random value in in range [0,j]
 		mpz_set_ui(big_j, j + 1);
 		mpz_mod(r, r, big_j);
 		indx = mpz_get_ui(r);
@@ -511,7 +511,7 @@ bigint*  Client::PR_shuffle(bigint* elem, int size, bigint seed){
 	gmp_randseed(rand, seed);
 	for (int  j = size - 1; j > 0; j--){
 		mpz_urandomb(r, rand, pub_moduli_bitsize);// Here, pub_moduli_bitsize is an arbitrary choice. It is fine as long as it's greater than the ceiling.
-    // gen random value in in range [0,j]
+    		// gen random value in in range [0,j]
 		mpz_set_ui(big_j, j + 1);
 		mpz_mod(r, r, big_j);
 		indx = mpz_get_ui(r);
@@ -693,7 +693,7 @@ bigint* Client::convert_BF_to_bigint(bloom_filter filter){
 // So, the function ensures they are put back (using a pad), otherwise BF would not reconstructed correctly.
 
  bloom_filter Client::convert_bigint_to_BF(bigint a, bloom_parameters parameters){
-   // converts bigint to a bitstring and pad it if needed.
+   	// converts bigint to a bitstring and pad it if needed.
 	 bloom_filter filter(bf_parameters);
 	 filter.clear();
 	 int size = filter.bit_table_.size();
@@ -707,7 +707,7 @@ bigint* Client::convert_BF_to_bigint(bloom_filter filter){
 		 for (int j = 0;j < dif; j++){pad += "0";}
 	 }
 	 s_val = pad + s_val;
-   // stores each 8-bits of the string in the hex form in each index of a new bf vector.
+   	// stores each 8-bits of the string in the hex form in each index of a new bf vector.
 	 while (offset < s_val.length() / 8 + 1){
 	 	string tmp_binr = s_val.substr(offset * 8,8);
 		// converts tmp_binr to hex.
