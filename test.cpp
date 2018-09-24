@@ -44,9 +44,9 @@ int main(){
 	int pub_mod_bitsize = 40;
 	int max_setsize = 1024;
 	int table_length = 30;
-
+	// (max_setsize,table_length) can be set as folllows: (1024,30), (2048, 61), (4096, 122), (8192,245), (16384,491), (32768,983), (65536, 2621), (131072, 5242),(262144, 10485), (524288, 20971), (1048576, 41943)
 	int bucket_max_load = 100;
-	int interSec_size = 15;
+	int interSec_size = 15; // an arbitrary choice and can be anything smaller than, equal to max_setsize.
 	int xsize = 201;// Note that the number of x is determined by bucket_max_load
 	if(xsize < (2 * bucket_max_load) + 1) {cout<<"\nxsize must be greater than 2*bucket_max_load)+1, reset it\n";return 0;}
 	int number_of_experiments = 1;
