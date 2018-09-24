@@ -19,6 +19,6 @@ to a cloud server. Then, they can efficiently update or run private set intersec
     g++  -I$home/homeDirectory/include -I/homeDirectory/bloom_filter/bloom_filter.hpp Rand.o Hashtable.o Polynomial.o Server.o Client.o test.cpp  -o test  -lntl -lgmpxx -lgmp -lcryptopp
     ./test
     
-    
     ```
+    * Note that in the above "homeDirectory" should be replaced with the name of the machine home  directory. 
     
