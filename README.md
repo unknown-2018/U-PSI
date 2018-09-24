@@ -20,5 +20,5 @@ to a cloud server. Then, they can efficiently update or run private set intersec
     ./test
     
     ```
-* Note that in the above "homeDirectory" should be replaced with the name of the machine home  directory. 
+* Note that in the above "homeDirectory" should be replaced with the name of your machine home directory. 
     
