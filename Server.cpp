@@ -94,7 +94,7 @@ void Server::regen_PRpolys(bigint key_, bigint **&w_A_, bigint **& w_B_, bigint 
 	Sw2 = (mpz_t*)malloc((NoElem_in_bucket + 1) * sizeof(mpz_t));
 	derived_key = (mpz_t**)malloc(table_size * sizeof(mpz_t));
 	tmp_bl_ = (mpz_t**)malloc(table_size * sizeof(mpz_t));
-		// regenerates w_1, w_2, and a_i
+	// regenerates w_1, w_2, and a_i
 	gmp_randstate_t randC, rand_Pas_C, rand02, rand03, rand04, randD, rand_Pas_D;
 	gmp_randinit_default(rand02);
 	gmp_randinit_default(rand03);
@@ -158,8 +158,8 @@ void Server::regen_PRpolys(bigint key_, bigint **&w_A_, bigint **& w_B_, bigint 
 		mpz_clear(temp_key);
 		mpz_clear(temp_key2);
 	}
-	//**********************************************************************
-	// - Function description: given a client's permission to compute the PSI, it generates the result.
+//**********************************************************************
+// - Function description: given a client's permission to compute the PSI, it generates the result.
 
  Server_Result * Server::compute_result (GrantComp_Info * grantComp_info, bigint tmp_key_){
 
