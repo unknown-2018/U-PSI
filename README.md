@@ -9,3 +9,6 @@ to a cloud server. Then, they can efficiently update or run private set intersec
  * Cryptopp: https://www.cryptopp.com
  * NTL: https://www.shoup.net/ntl
  * Bloom filter: http://www.partow.net/programming/bloomfilter/index.html
+
+# Runnig a Test
+* First, download the above libraries, and the U-PSI file. Then, install the libraries and unzip .the U-PSI file
