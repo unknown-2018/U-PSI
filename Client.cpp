@@ -50,7 +50,7 @@ Client::Client(Server*server, bigint *elements, int el_size){
 	get_pubModuli_bitsize(); // gets the bit-size of the public moduli.
 	// sets the bloom filters parameters.
 	bf_parameters.projected_element_count = NoElem_in_bucket;
-	bf_parameters.false_positive_probability = 0.0000000000009095;
+	bf_parameters.false_positive_probability = 0.0000000000009095; // 2^{-40}
 	bf_parameters.random_seed = 0xA5A5A5A5;
 	if (!bf_parameters)
 	{
