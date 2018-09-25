@@ -26,7 +26,7 @@
 
 struct CompPerm_Request{
 	string id;
-	bigint**r;//blinded blinding factors
+	bigint**r; //blinded blinding factors
 	bigint label_key_;
 	bigint shuffle_key_;
 };
@@ -34,8 +34,8 @@ struct CompPerm_Request{
 // - Description: a message for granting PSI computation. It is sent from the authorizer client to the server.
 
 struct GrantComp_Info{
-	string* id;// the result reciepent id is in id[0].
-	bigint seed;// temporary key: tk
+	string* id; // the result reciepent id is in id[0].
+	bigint seed; // temporary key: tk
 	bigint** pm; // permutation map
 };
 //**********************************************************************
@@ -49,9 +49,9 @@ struct Server_Result{
 // - Description: A client's dataset maintained by the server.
 
 struct Client_Dataset{
-	Polynomial* poly;// an array of polynomials
-	bigint* labels;// an array of labels
-	bigint* BF;//array of blinded bloom filters
+	Polynomial* poly; // an array of polynomials
+	bigint* labels; // an array of labels
+	bigint* BF; //array of blinded bloom filters
 };
 //**********************************************************************
 
