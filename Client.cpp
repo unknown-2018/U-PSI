@@ -25,7 +25,7 @@ Client::Client(Server*server, bigint *elements, int el_size){
 	gmp_randstate_t rand, rand2, rand3, rand4, rand5, rand6;
 	bigint ran;
 	rd.init_rand3(rand, ran, 8); // generates a truly random value.
-	mpz_init_set(seed, ran); // assing the above random value to seed.
+	mpz_init_set(seed, ran); // assings the above random value to seed.
 	mpz_init(ran);
 	rd.init_rand3(rand2, ran, 8);
 	mpz_init_set(counter_key, ran);
@@ -96,8 +96,8 @@ bigint** Client::regen_bl_factors(bigint seed_, bigint ck, int* counter){
 		if(counter[i] == 0){
 			mpz_set(bliding_key, bin_key);
 		}
-		// If the bin has been updated, then derive a pseudorandm value: c_j and
-		// then compute a blinding key as: k_j+PRF(ck_j,c_j)
+		// If the bin has been updated, then derives a pseudorandm value: c_j and
+		// then computes a blinding key as: k_j+PRF(ck_j,c_j)
 		else{
 		bigint tmp_key;
 		gmp_randseed(rand3, bin_ck);
@@ -114,7 +114,7 @@ bigint** Client::regen_bl_factors(bigint seed_, bigint ck, int* counter){
 		mpz_clear(tmp2);
 	}
 	gmp_randseed(rand4, bliding_key);
-	// given the above blinding key, regenerate the blinding factors of the bin.
+	// given the above blinding key, regenerates the blinding factors of the bin.
 	for(int j = 0; j < xpoint_size; j++){
 		mpz_init(blf[i][j]);
 		mpz_urandomb(blf[i][j], rand4, pub_moduli_bitsize);
@@ -251,7 +251,7 @@ string Client::update(bigint elem, string updt, bigint & label, string id){
 			// exteracts the set elemenets from the bin by interpolating a polynomial and finding its roots.
 			bigint* coeff = pol_.interpolate(xpoint_size, xpoints, un_bl, pubmoduli); // interpolate a polynomial, given x and y coordinates.
 			bigint* roots = findroots(coeff, xpoint_size, number_of_roots, pubmoduli); //finds the roots.
-			bigint* valid_roots = check_vals_in_BF(roots, number_of_roots, unblinded_bf[0], bf_parameters, num_of_elements_found); // extracts the valid roots, by checking which roots are in the bin's bloom filters.
+			bigint* valid_roots = check_vals_in_BF(roots, number_of_roots, unblinded_bf[0], bf_parameters, num_of_elements_found); // extracts the valid roots, by checking which roots are in the bin's bloom filter.
 			bloom_filter filter(bf_parameters); // builds a new bloom filters for the bin.
 			string s = mpz_get_str(NULL, 10, elem);
 			filter.insert(s); // inserts the element, to be inserted, into the new bloom filters.
@@ -292,7 +292,7 @@ string Client::update(bigint elem, string updt, bigint & label, string id){
 			bloom_filter filter(bf_parameters); // builds a new bloom filters.
 			if(num_of_elements_found > 0){
 				for(int i = 0; i < num_of_elements_found; i++){
-					// inserts all set eleements of the bin into the bloom filters, except the element to be deleted: elem.
+					// inserts all set eleements of the bin into the bloom filter, except the element to be deleted: elem.
 					if(mpz_cmp(valid_roots[i], elem) != 0){
 						string s = mpz_get_str(NULL, 10, valid_roots[i]);
 						filter.insert(s);
@@ -321,15 +321,15 @@ string Client::update(bigint elem, string updt, bigint & label, string id){
 	}
 	double end_3 = clock();
 	temp += end_3 - start_3;
-	blinded_bf = blind_BF(new_Bigint_BF[0], j, BF_key, BF_counter_key, 5780, pr_moduli); // blinds the biginteger representing the blom filters.
-	// blind the y-coordinates of the bin with fresh blinding factors.
+	blinded_bf = blind_BF(new_Bigint_BF[0], j, BF_key, BF_counter_key, 5780, pr_moduli); // blinds the biginteger representing the bloom filter.
+	// blinds the y-coordinates of the bin with fresh blinding factors.
 	double start_4 = clock();
 	bigint tmp_key2;
 	gmp_randstate_t rand_x, rand_y;
 	gmp_randinit_default(rand_x);
 	gmp_randinit_default(rand_y);
 	gmp_randseed(rand_x, counter_key);
-	//compute PRF(ck_j,c_j) in step 2.a
+	// computes PRF(ck_j,c_j) in step 2.a
 	for(int k = 0; k < counter[j]; k++){
 		mpz_init(tmp_key2);
 		mpz_urandomb(tmp_key2, rand_x, pub_moduli_bitsize);
@@ -368,8 +368,8 @@ bigint* Client::gen_labels(int size, bigint seed){
 	gmp_randseed(rand,seed);
 	for(int i = 0; i < size; i++){
 		mpz_init(labels[i]);
-		mpz_urandomb(labels[i], rand, labels_bit_size);// The last argument is in bit
-		if(i == 0){end_1 = clock();} //just to time gen label in update
+		mpz_urandomb(labels[i], rand, labels_bit_size);// The last argument is in bit.
+		if(i == 0){end_1 = clock();} //just to time gen_label in update phase.
 	}
 	// checks if all the labels are distinct.
 	for(int i = 0; i < size; i++){
@@ -403,10 +403,10 @@ bigint** Client::gen_map(int size, bigint seed1, bigint seed2){
 		labels[i] = (mpz_t*)malloc(2 * sizeof(mpz_t));
 		mpz_init(labels[i][0]);
 		mpz_init(labels[i][1]);
-		mpz_urandomb(labels[i][0], rand1, labels_bit_size);// The last argument is in bit
+		mpz_urandomb(labels[i][0], rand1, labels_bit_size);// The last argument is in bit.
 		mpz_urandomb(labels[i][1], rand2, labels_bit_size);
 	}
-	labels2 = R_shuffle(labels, size); // the label pairs is randomly permuted.
+	labels2 = R_shuffle(labels, size); // the label pairs are randomly permuted.
 	gmp_randclear(rand1);
 	gmp_randclear(rand2);
 	free(labels);
@@ -470,13 +470,13 @@ int* Client::PR_shuffle(int* elem, int size, bigint seed){
 		result[i] = elem[i];
 	}
 	int indx = 0;
-	// use the seed to generate a random value between [1,j]
+	// uses the seed to generate a random value between [1,j].
 	gmp_randstate_t rand;
 	gmp_randinit_default(rand);
 	gmp_randseed(rand,seed);
 	for (int  j = size - 1; j > 0; j--){
 		mpz_urandomb(r, rand, pub_moduli_bitsize);// Here, pub_moduli_bitsize is an arbitrary choice. It would fine as long as it's greater than the ceiling.
-    		// gen random value in in range [0,j]
+    		// generates a random value in the range [0,j].
 		mpz_set_ui(big_j, j + 1);
 		mpz_mod(r, r, big_j);
 		indx = mpz_get_ui(r);
@@ -505,17 +505,17 @@ bigint*  Client::PR_shuffle(bigint* elem, int size, bigint seed){
 		mpz_set(res[i], elem[i]);
 	}
 	int indx = 0;
-	// use the seed to generate a random value between [1,j]
+	// uses the seed to generate a random value in the range [1,j].
 	gmp_randstate_t rand;
 	gmp_randinit_default(rand);
 	gmp_randseed(rand, seed);
 	for (int  j = size - 1; j > 0; j--){
 		mpz_urandomb(r, rand, pub_moduli_bitsize);// Here, pub_moduli_bitsize is an arbitrary choice. It is fine as long as it's greater than the ceiling.
-    		// gen random value in in range [0,j]
+    		// generates a random value in the range [0,j].
 		mpz_set_ui(big_j, j + 1);
 		mpz_mod(r, r, big_j);
 		indx = mpz_get_ui(r);
-		//exchange
+		// exchange
 		mpz_init_set(buf, res[j]);
 		mpz_init(res[j]);
 		mpz_set(res[j], res[indx]);
@@ -546,7 +546,7 @@ bigint**  Client::PR_shuffle_bins(bigint** bins, int size, bigint seed_){
 	gmp_randinit_default(rand);
 	gmp_randseed(rand, seed_);
 	int indx = 0;
-	// use the seed to generate a random value between [0,j]
+	// uses the seed to generate a random value in the range [0,j].
 	for (int  j = size - 1; j > 0; j--){
 		// gen random value in in range [0,j]
 		mpz_urandomb(r, rand, pub_moduli_bitsize);
@@ -574,7 +574,7 @@ Polynomial*  Client::PR_shuffle_poly(Polynomial* pol, int size, bigint seed){
 		ply_res[i] = pol[i];
 	}
 	int indx = 0;
-	// use the seed to generate a random value between [0,j]
+	// uses the seed to generate a random value in the range [0,j].
 	gmp_randstate_t rand;
 	gmp_randinit_default(rand);
 	gmp_randseed(rand, seed);
@@ -582,12 +582,12 @@ Polynomial*  Client::PR_shuffle_poly(Polynomial* pol, int size, bigint seed){
 	mpz_init(r);
 	mpz_init(big_j);
 	for (int j = size - 1; j > 0; j--){
-		// gen random value in in range [0,j]
+		// generates a random value in the range [0,j].
 		mpz_urandomb(r, rand, pub_moduli_bitsize);
 		mpz_set_ui(big_j, j + 1);
 		mpz_mod(r, r, big_j);
 		indx = mpz_get_ui(r);
-		//exchange
+		// exchange
 		buf = ply_res[j];
 		ply_res[j] = ply_res[indx];
 		ply_res[indx] = buf;
@@ -656,8 +656,8 @@ bigint** Client::combine_permuted_bins(bigint**& v_a, bigint**& v_b, bigint**& a
 	for(int i = 0; i < v_size; i++){
 		res[ar[i]] = (mpz_t*)malloc(xpoint_size_ * sizeof(mpz_t));
 		// sums the elements of v_a at position i with its matched elements in v_b (at position ar[i]).
-		// then sums the result with the elements of a at position i.
-		// stores the result in res at position ar[i],  which is compatible with the permutation used in v_b.
+		// then sums the result with the elements of "a" at position i.
+		// stores the result in "res" at position ar[i],  which is compatible with the permutation used in v_b.
 		for(int j = 0; j < xpoint_size_; j++){
 			mpz_init(res[ar[i]][j]);
 			mpz_add(res[ar[i]][j], v_a[i][j], v_b[ar[i]][j]);
@@ -684,7 +684,7 @@ bigint* Client::convert_BF_to_bigint(bloom_filter filter){
 		ar[i] = filter.bit_table_[i];
 	}
 	mpz_init(res[0]);
-	mpz_import(res[0], sizeof(ar), 1, sizeof(ar[0]), 0, 0, ar);// converts the array of bytes to a biginteger.
+	mpz_import(res[0], sizeof(ar), 1, sizeof(ar[0]), 0, 0, ar); // converts the array of bytes to a biginteger.
 	return res;
 }
 //**********************************************************************
@@ -796,7 +796,7 @@ bigint* Client::check_vals_in_BF(bigint* vals, int val_size, bigint bf, bloom_pa
 	int indx = 0;
 	res = (mpz_t*)malloc(val_size * sizeof(mpz_t));
 	bloom_filter filter(bf_parameters);
-	filter = convert_bigint_to_BF(bf, bf_parameters); //convers biginteger (representation of a bloom filters) to a bloom filters.
+	filter = convert_bigint_to_BF(bf, bf_parameters); //convers biginteger (representation of a bloom filters) to a bloom filter.
 	for (int j = 0; j < val_size; j++){
 		string s = mpz_get_str(NULL, 10, vals[j]);
 		if(filter.contains(s)){
@@ -824,14 +824,14 @@ void Client::get_xpoints(int& size){
 	xpoint_size = size;
 }
 //**********************************************************************
-// - Function description: retrives the public moduli bit-size from the server.
+// - Function description: retrives the public modulus bit-size from the server.
 
 void Client::get_pubModuli_bitsize(){
 	
 	pub_moduli_bitsize = serv->get_pubModuli_bitsize();
 }
 //**********************************************************************
-// - Function description: fetches the public moduli from the server.
+// - Function description: fetches the public modulus from the server.
 
 void Client::get_pubModuli(){
 	
@@ -847,7 +847,7 @@ void Client::get_tablesize(){
 	table_size = serv->get_table_size();
 }
 //**********************************************************************
-// - Function description: prepare the set elements and sends a blinded dataset to the server.
+// - Function description: prepares the set elements and sends a blinded dataset to the server.
 
 void Client::outsource_db(string& poly_ID){
 	
@@ -855,11 +855,11 @@ void Client::outsource_db(string& poly_ID){
 	bigint minus_one, *blinded_BF, *permuted_BBF, *bigint_BF, tmp_key, key, ck, bliding_key, tmp2;
 	mpz_init_set_str(minus_one, "-1", 10);
 
-	Hashtable HT(NoElem_in_bucket, elem, elem_size, table_size); // contructs a hash table and inserts the element into it.
-	bigint_BF = assing_BFs2HT(HT, NoElem_in_bucket, table_size, bf_parameters); // assigns a bloom filters to each bin. It returns an array of bigint representing bloom filters.
+	Hashtable HT(NoElem_in_bucket, elem, elem_size, table_size); // contructs a hash table and inserts the elements into it.
+	bigint_BF = assing_BFs2HT(HT, NoElem_in_bucket, table_size, bf_parameters); // assigns a bloom filter to each bin. It returns an array of bigint representing the bloom filters.
 	blinded_BF = blind_BFs(bigint_BF, table_size , BF_key, 5780, pr_moduli); // blinds the bigintegers representing the bloom filters.
 	db.BF = PR_shuffle(blinded_BF, table_size, shuffle_key); // permutes the array of bigintegers and stores the result in Client_Dataset that will be sent to the server.
-	//sets parameters to represent each bin by a polynomial
+	// sets parameters to represent each bin by a polynomial.
 	Polynomial *poly;
 	poly = new Polynomial [table_size];
 	outpoly_ID = poly_ID;
@@ -877,10 +877,10 @@ void Client::outsource_db(string& poly_ID){
 		Polynomial pol(HT.get_bucket(i), poly_ID, xpoints, NoElem_in_bucket, xpoint_size, pubmoduli);
 		poly[i] = pol;
 		// assigns a seed to every index of HT.	Each seed is used to blind corresponding poly.
-		mpz_urandomb(key, rand, pub_moduli_bitsize); // k_j is generated
-		mpz_urandomb(ck, rand2, pub_moduli_bitsize); // ck_j is generated
+		mpz_urandomb(key, rand, pub_moduli_bitsize); // k_j is generated.
+		mpz_urandomb(ck, rand2, pub_moduli_bitsize); // ck_j is generated.
 		mpz_set(bliding_key, key);
-		poly[i].blind_poly(bliding_key, pubmoduli, pub_moduli_bitsize); // blind every poly.
+		poly[i].blind_poly(bliding_key, pubmoduli, pub_moduli_bitsize); // blinds every poly.
 	}
 	bigint* labels;
 	labels = (mpz_t*)malloc(table_size * sizeof(mpz_t));
@@ -929,11 +929,11 @@ GrantComp_Info * Client::grant_comp(CompPerm_Request* com_req,bigint **&qq, bool
 	a = (mpz_t**)malloc(table_size * sizeof(mpz_t));
 	pm = gen_map (table_size, label_key, com_req->label_key_); // generates a randomly permuted mapping vector.
 	bl = regen_bl_factors(seed, counter_key, counter); // regenerates the blinding factors.
-	s_bl = PR_shuffle_bins(bl, table_size, shuffle_key); // permuted the blinding factors.
+	s_bl = PR_shuffle_bins(bl, table_size, shuffle_key); // permutes the blinding factors.
 	gmp_randstate_t randC, rand_Pas_C;
 	gmp_randinit_default(randC);
 	gmp_randinit_default(rand_Pas_C);
-	// gen a_i, w1_i and w2_i
+	// generates a_i, w1_i and w2_i.
 	q = (mpz_t**)malloc(table_size * sizeof(mpz_t));
 	derived_key = (mpz_t**)malloc(table_size * sizeof(mpz_t));
 	a = (mpz_t**)malloc(table_size * sizeof(mpz_t));
@@ -945,7 +945,7 @@ GrantComp_Info * Client::grant_comp(CompPerm_Request* com_req,bigint **&qq, bool
 	gmp_randinit_default(rand04);
 	gmp_randstate_t rand;
 	Random rd;
-	rd.init_rand3(rand, tk, 8);// generate a fresh master seed.
+	rd.init_rand3(rand, tk, 8);// generates a fresh master seed.
 	gmp_randseed(randC, tk);
 	for(int i = 0; i < table_size; i++){
 		v_A[i] = (mpz_t*)malloc(xpoint_size * sizeof(mpz_t));
@@ -953,7 +953,7 @@ GrantComp_Info * Client::grant_comp(CompPerm_Request* com_req,bigint **&qq, bool
 		a[i] = (mpz_t*)malloc(xpoint_size * sizeof(mpz_t));
 		q[i] = (mpz_t*)malloc(xpoint_size * sizeof(mpz_t));
 		mpz_init(temp_key);
-		mpz_urandomb(temp_key, randC, pub_moduli_bitsize); // generates a key: k_i
+		mpz_urandomb(temp_key, randC, pub_moduli_bitsize); // generates a key: k_i.
 		gmp_randseed(rand_Pas_C, temp_key);
 		derived_key[i] = (mpz_t*)malloc(3 * sizeof(mpz_t));
 		// derives 3 keys from k_i. key 1 is used to generate a_i, while key 2 and 3 used to genetare w1_i and w2_i (i.e. pseudorandom polynomials).
@@ -1073,7 +1073,7 @@ bigint* Client::unblind_BFs(bigint* BF, int table_size_, bigint BF_key, bigint B
 			mpz_mod(bld_factor[i], bld_factor[i], pr_moduli_);
 		}
 	}
-	shuffled_bld = PR_shuffle(bld_factor, table_size_, shuffle_key); //shuffles the blinding factors, as the bloom filters are in the shuffled form.
+	shuffled_bld = PR_shuffle(bld_factor, table_size_, shuffle_key); // shuffles the blinding factors, as the bloom filters are in the shuffled form.
 	unblinded_BF = (mpz_t*)malloc(table_size_ * sizeof(mpz_t));
 	for(int j = 0; j < table_size_; j++){
 		mpz_init(unblinded_BF[j]);
@@ -1084,7 +1084,7 @@ bigint* Client::unblind_BFs(bigint* BF, int table_size_, bigint BF_key, bigint B
 	return unblinded_BF;
 }
 //**********************************************************************
-// - Function description: given the server's response, it find the intersection. In particular,
+// - Function description: given the server's response, it finds the intersection. In particular,
 // it  unblinds the result, finds the polynomials roots and retrives the valid ones.
 
 vector <string> Client::find_intersection(Server_Result* res, int*& size, bigint** q){
@@ -1098,7 +1098,7 @@ vector <string> Client::find_intersection(Server_Result* res, int*& size, bigint
 	unbl_BFs = unblind_BFs(res->BF, table_size, BF_key, BF_counter_key, 5780, pr_moduli);
 	string tempstr;
 	for(int i = 0; i < table_size; i++){
-		// removes the blinding factors
+		// removes the blinding factors.
 		for(int j = 0; j < xpoint_size; j++){
 			mpz_init(un_bl[j]);
 			mpz_sub(un_bl[j], pubmoduli, q[i][j]);
@@ -1128,7 +1128,7 @@ vector <string> Client::find_intersection(Server_Result* res, int*& size, bigint
 // Used in outsourcing phase, so no counter (to regenerate the most recent blinding factors) is needed.
 
 bigint* Client::blind_BFs(bigint* bf, int bf_size, bigint BF_key, int bit_size, bigint pr_moduli){
-	//genrates table size pseudorandom values using the BF_key.
+	// genrates table size pseudorandom values using the BF_key.
 	bigint* blinded_BF;
 	blinded_BF = (mpz_t*)malloc(bf_size * sizeof(mpz_t));
 	gmp_randstate_t rand_x;
@@ -1139,7 +1139,7 @@ bigint* Client::blind_BFs(bigint* bf, int bf_size, bigint BF_key, int bit_size, 
 		mpz_init(blinding_fac);
 		mpz_urandomb(blinding_fac, rand_x, bit_size);
 		mpz_init(blinded_BF[i]);
-		mpz_add(blinded_BF[i], blinding_fac, bf[i]); // blinds each biginteger representing a bloom filters.
+		mpz_add(blinded_BF[i], blinding_fac, bf[i]); // blinds each biginteger representing a bloom filter.
 		mpz_mod(blinded_BF[i], blinded_BF[i], pr_moduli);
 	}
 	mpz_clear(blinding_fac);
@@ -1147,7 +1147,7 @@ bigint* Client::blind_BFs(bigint* bf, int bf_size, bigint BF_key, int bit_size, 
 	return blinded_BF;
 }
 //**********************************************************************
-// - Function description: unblinds a biginteger representing a Bloom filters.
+// - Function description: unblinds a biginteger representing a Bloom filter.
 
 bigint* Client::unblind_BF(bigint BF, int  indx , bigint BFkey, bigint BF_counterkey, int bit_size, bigint pr_moduli){
 	// regenertes the corresponding blinding factor.
@@ -1189,7 +1189,7 @@ bigint* Client::unblind_BF(bigint BF, int  indx , bigint BFkey, bigint BF_counte
 	}
 		mpz_init(unblinded_BF[0]);
 		mpz_sub(unblinded_BF[0], pr_moduli, bld_factor);
-		mpz_add(unblinded_BF[0], unblinded_BF[0], BF); // unblinds the biginteger representing a bloom filters.
+		mpz_add(unblinded_BF[0], unblinded_BF[0], BF); // unblinds the biginteger representing a bloom filter.
 		mpz_mod(unblinded_BF[0], unblinded_BF[0], pr_moduli);
 		mpz_clear(bld_factor);
 		double end_2 = clock();
@@ -1241,7 +1241,7 @@ bigint* Client::blind_BF(bigint BF, int  indx , bigint BFkey, bigint BF_counterk
 		mpz_mod(bld_factor, bld_factor, pr_moduli);
 	}
 		mpz_init(blinded_BF[0]);
-		mpz_add(blinded_BF[0], bld_factor, BF); // blinds the biginteger representing a bloom filters.
+		mpz_add(blinded_BF[0], bld_factor, BF); // blinds the biginteger representing a bloom filter.
 		mpz_mod(blinded_BF[0], blinded_BF[0], pr_moduli);
 		double end_2 = clock();
 		temp += end_2 - start_2;
