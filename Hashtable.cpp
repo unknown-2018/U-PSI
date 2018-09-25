@@ -13,7 +13,7 @@
 Hashtable::Hashtable(int NoElem_in_bucket, bigint* elem, int elem_size, int table_size){
 
 	int indx[elem_size];
-	// convert z to bigint zz, where zz will be used as a moduli
+	// converts z to bigint zz, where zz will be used as a modulus.
 	bigint zz, minus_one, *b;
 	mpz_init(zz);
 	mpz_set_ui(zz,table_size);
@@ -24,7 +24,7 @@ Hashtable::Hashtable(int NoElem_in_bucket, bigint* elem, int elem_size, int tabl
 	byte  digest[CryptoPP::SHA512::DIGESTSIZE];
 	for(int i = 0;i < table_size; i++){
 		T[i] = (mpz_t*)malloc(NoElem_in_bucket * sizeof(mpz_t));
-		for(int k = 0; k < NoElem_in_bucket; k++){ // fill all bins with -1.
+		for(int k = 0; k < NoElem_in_bucket; k++){ // fills all bins with -1.
 			mpz_init_set_str(T[i][k],"-1",10);
 		}
 	}
@@ -42,7 +42,7 @@ Hashtable::Hashtable(int NoElem_in_bucket, bigint* elem, int elem_size, int tabl
 		indx[i] = mpz_get_ui (b[i]);
 		for(int j = 0; j < NoElem_in_bucket;){
 			if(mpz_cmp(T[indx[i]][j], minus_one) == 0){
-					mpz_set(T[indx[i]][j], elem[i]);// stores the elements in the table' bins
+					mpz_set(T[indx[i]][j], elem[i]); // stores the elements in the table' bins
 					break;
 				}
 				else{
