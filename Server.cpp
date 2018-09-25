@@ -34,7 +34,7 @@ bigint* Server::get_xpoints(int& size){
 	return ptr;
 }
 //**********************************************************************
-// - Function description: returns public moduli.
+// - Function description: returns public modulus.
 
 bigint*  Server::get_pubModuli(){
 
@@ -58,7 +58,7 @@ int Server::get_NoElem_in_bucket(){
 	return NoElem_in_bucket;
 }
 //**********************************************************************
-// - Function description: stores a client's dataset, given the avaialbe index at the server-side database.
+// - Function description: stores a client's dataset, given the availabe index at the server-side database.
 // It's called by store_poly().
 
 void Server::set_db(int index, Client_Dataset &p){
@@ -216,7 +216,7 @@ void Server::regen_PRpolys(bigint key_, bigint **&w_A_, bigint **& w_B_, bigint 
  int Server::find_db_index(string id){
 	 int i;
 	 string s;
-	 for(i = 0; i < db_size; i++){ // in the server-side database containing  different clients datasets, find the clinet's index in there.
+	 for(i = 0; i < db_size; i++){ // in the server-side database containing different clients datasets, finds the clinet's index in there.
 		 Client_Dataset p = get_db(i);
 		 if(p.poly[0].get_poly_ID() == id){
 			 return i;
@@ -228,7 +228,7 @@ void Server::regen_PRpolys(bigint key_, bigint **&w_A_, bigint **& w_B_, bigint 
 	 }
 }
 //**********************************************************************
-// - Function description: given client's update query, it applies the update to the client's dataset at the server-side
+// - Function description: given client's update query, it applies the update to the client's dataset at the server-side.
 // It is called by update_client_bin();
 
 void Server::update_db(bigint* vals,bigint label, string id, bigint bbf){
