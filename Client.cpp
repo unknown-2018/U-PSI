@@ -9,7 +9,7 @@
 // - Description:  Constructor- It generates the following private keys: seed,
 // counter_key, label_key,shuffle_key, BF_key, BF_counter_key.
 // It fetches the hashtable parameters, x-points, and field description from the server.
-// It sets a moduli for blinding bloom filters and sets the bloom filter parameters.
+// It sets a modulus for blinding bloom filters and sets the bloom filter parameters.
 
 
 Client::Client(Server*server, bigint *elements, int el_size){
