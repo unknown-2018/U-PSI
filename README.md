@@ -4,6 +4,8 @@
 * An efficient protocol that allows clients independently prepare and outosurce their private data
 to a cloud server. Then, they can efficiently update or run private set intersection on the outsourced data.
 
+* The protocol implementation also uses the idea of blinded bloom filtter (BBF). 
+
 # Dependencies
  * GMP: https://gmplib.org/
  * Cryptopp: https://www.cryptopp.com
